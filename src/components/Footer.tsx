@@ -9,13 +9,11 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <h3 className="font-heading text-xl font-semibold mb-3">
-                Tapeçaria Ipiranga
+                Tapeçaria Marzorati
               </h3>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Criação e restauração de móveis estofados com qualidade artesanal.
-                Atendemos o bairro do Ipiranga e toda São Paulo.
-              </p>
-            </div>
+                Rua Vergueiro, 7724 - Vila Brasilio Machado, São Paulo - SP, 04273-100.
 
             <div>
               <h4 className="font-heading text-lg font-semibold mb-3">Navegação</h4>
