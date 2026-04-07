@@ -41,7 +41,7 @@ const Footer = () => {
           </div>
 
           <div className="mt-8 pt-6 border-t border-dashed border-primary-foreground/20 text-center text-xs text-primary-foreground/50">
-            © {new Date().getFullYear()} Tapeçaria Ipiranga. Todos os direitos reservados.
+            © {new Date().getFullYear()} Tapeçaria Marzorati. Todos os direitos reservados.
           </div>
         </div>
       </div>

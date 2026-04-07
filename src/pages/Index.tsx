@@ -16,7 +16,7 @@ const features = [
   {
     icon: Scissors,
     title: "Artesanato Local",
-    description: "Tradição e qualidade do bairro do Ipiranga, São Paulo.",
+    description: "Tradição e qualidade na Vila Brasilio Machado, São Paulo.",
   },
 ];
 

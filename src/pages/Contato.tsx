@@ -159,10 +159,10 @@ const Contato = () => {
                   <MapPin size={18} /> Localização
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Bairro do Ipiranga, São Paulo — SP
+                  Rua Vergueiro, 7724 - Vila Brasilio Machado
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Endereço completo a ser adicionado.
+                  São Paulo - SP, 04273-100
                 </p>
               </div>
             </div>
