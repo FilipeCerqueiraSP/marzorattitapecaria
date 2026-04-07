@@ -14,6 +14,8 @@ const Footer = () => {
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Criação e restauração de móveis estofados com qualidade artesanal.
                 Rua Vergueiro, 7724 - Vila Brasilio Machado, São Paulo - SP, 04273-100.
+              </p>
+            </div>
 
             <div>
               <h4 className="font-heading text-lg font-semibold mb-3">Navegação</h4>
@@ -27,7 +29,7 @@ const Footer = () => {
             <div>
               <h4 className="font-heading text-lg font-semibold mb-3">Contato</h4>
               <div className="space-y-2 text-sm text-primary-foreground/70">
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                <a href="tel:+551150584157" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                   <Phone size={16} /> (11) 5058-4157
                 </a>
                 <a href="https://wa.me/5511953678228" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
