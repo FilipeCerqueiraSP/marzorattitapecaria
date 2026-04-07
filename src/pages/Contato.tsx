@@ -110,7 +110,7 @@ const Contato = () => {
                 </h3>
                 <div className="space-y-4">
                   <a
-                    href="https://wa.me/5511000000000"
+                    href="https://wa.me/5511953678228"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
@@ -120,7 +120,7 @@ const Contato = () => {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground">WhatsApp</span>
-                      <p className="text-xs text-muted-foreground">(11) 00000-0000</p>
+                      <p className="text-xs text-muted-foreground">(11) 95367-8228</p>
                     </div>
                   </a>
 
