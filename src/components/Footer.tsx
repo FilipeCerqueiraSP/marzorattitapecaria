@@ -28,13 +28,13 @@ const Footer = () => {
               <h4 className="font-heading text-lg font-semibold mb-3">Contato</h4>
               <div className="space-y-2 text-sm text-primary-foreground/70">
                 <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Phone size={16} /> (11) 0000-0000
+                  <Phone size={16} /> (11) 5058-4157
                 </a>
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Mail size={16} /> contato@tapecaria.com
+                <a href="https://wa.me/5511953678228" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <MessageCircle size={16} /> (11) 95367-8228
                 </a>
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Instagram size={16} /> @tapecaria.ipiranga
+                <a href="https://instagram.com/tapecaria.marzorati" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <Instagram size={16} /> @tapecaria.marzorati
                 </a>
               </div>
             </div>
