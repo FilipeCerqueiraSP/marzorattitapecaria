@@ -110,7 +110,7 @@ const Contato = () => {
                 </h3>
                 <div className="space-y-4">
                   <a
-                    href="https://wa.me/5511000000000"
+                    href="https://wa.me/5511953678228"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
@@ -120,12 +120,12 @@ const Contato = () => {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground">WhatsApp</span>
-                      <p className="text-xs text-muted-foreground">(11) 00000-0000</p>
+                      <p className="text-xs text-muted-foreground">(11) 95367-8228</p>
                     </div>
                   </a>
 
                   <a
-                    href="tel:+551100000000"
+                    href="tel:+551150584157"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
                   >
                     <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
@@ -133,12 +133,12 @@ const Contato = () => {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground">Telefone</span>
-                      <p className="text-xs text-muted-foreground">(11) 0000-0000</p>
+                      <p className="text-xs text-muted-foreground">(11) 5058-4157</p>
                     </div>
                   </a>
 
                   <a
-                    href="https://instagram.com/tapecaria.ipiranga"
+                    href="https://instagram.com/tapecaria.marzorati"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
@@ -148,7 +148,7 @@ const Contato = () => {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground">Instagram</span>
-                      <p className="text-xs text-muted-foreground">@tapecaria.ipiranga</p>
+                      <p className="text-xs text-muted-foreground">@tapecaria.marzorati</p>
                     </div>
                   </a>
                 </div>
@@ -159,10 +159,10 @@ const Contato = () => {
                   <MapPin size={18} /> Localização
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Bairro do Ipiranga, São Paulo — SP
+                  Rua Vergueiro, 7724 - Vila Brasilio Machado
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Endereço completo a ser adicionado.
+                  São Paulo - SP, 04273-100
                 </p>
               </div>
             </div>

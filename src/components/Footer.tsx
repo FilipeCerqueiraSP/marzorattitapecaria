@@ -1,4 +1,4 @@
-import { Instagram, Phone, Mail } from "lucide-react";
+import { Instagram, Phone, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,11 +9,11 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <h3 className="font-heading text-xl font-semibold mb-3">
-                Tapeçaria Ipiranga
+                Tapeçaria Marzorati
               </h3>
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Criação e restauração de móveis estofados com qualidade artesanal.
-                Atendemos o bairro do Ipiranga e toda São Paulo.
+                Rua Vergueiro, 7724 - Vila Brasilio Machado, São Paulo - SP, 04273-100.
               </p>
             </div>
 
@@ -29,21 +29,21 @@ const Footer = () => {
             <div>
               <h4 className="font-heading text-lg font-semibold mb-3">Contato</h4>
               <div className="space-y-2 text-sm text-primary-foreground/70">
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Phone size={16} /> (11) 0000-0000
+                <a href="tel:+551150584157" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <Phone size={16} /> (11) 5058-4157
                 </a>
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Mail size={16} /> contato@tapecaria.com
+                <a href="https://wa.me/5511953678228" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <MessageCircle size={16} /> (11) 95367-8228
                 </a>
-                <a href="#" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Instagram size={16} /> @tapecaria.ipiranga
+                <a href="https://instagram.com/tapecaria.marzorati" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <Instagram size={16} /> @tapecaria.marzorati
                 </a>
               </div>
             </div>
           </div>
 
           <div className="mt-8 pt-6 border-t border-dashed border-primary-foreground/20 text-center text-xs text-primary-foreground/50">
-            © {new Date().getFullYear()} Tapeçaria Ipiranga. Todos os direitos reservados.
+            © {new Date().getFullYear()} Tapeçaria Marzorati. Todos os direitos reservados.
           </div>
         </div>
       </div>

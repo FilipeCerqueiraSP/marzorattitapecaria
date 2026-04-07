@@ -18,7 +18,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between py-4 px-4">
         <Link to="/" className="flex flex-col items-start">
           <span className="font-heading text-2xl font-bold text-primary tracking-wide">
-            Tapeçaria Ipiranga
+            Tapeçaria Marzorati
           </span>
           <span className="text-xs text-muted-foreground tracking-widest uppercase">
             Estofados sob medida
