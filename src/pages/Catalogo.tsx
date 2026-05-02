@@ -101,6 +101,53 @@ const Catalogo = () => {
             </span>
           </div>
 
+          {/* Segment selector: Corporativo (CNPJ) / Doméstico (CPF) */}
+          <div className="mb-10">
+            <div className="flex flex-col items-center gap-3">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                Selecione o perfil de atendimento
+              </span>
+              <div
+                role="tablist"
+                aria-label="Perfil de atendimento"
+                className="inline-flex flex-wrap justify-center gap-1 p-1 bg-muted/60 stitch-border-light rounded-lg"
+              >
+                {segments.map((seg) => {
+                  const Icon = seg.icon;
+                  const active = activeSegment === seg.key;
+                  return (
+                    <button
+                      key={seg.key}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setActiveSegment(seg.key)}
+                      className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-md text-sm font-medium transition-all ${
+                        active
+                          ? "bg-card text-primary shadow-sm ring-1 ring-accent/40"
+                          : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+                      }`}
+                    >
+                      <Icon size={16} className={active ? "text-accent" : ""} />
+                      <span className="flex flex-col items-start leading-tight">
+                        <span>{seg.label}</span>
+                        <span className={`text-[10px] uppercase tracking-wider ${active ? "text-accent" : "text-muted-foreground/80"}`}>
+                          {seg.sublabel}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground max-w-md text-center">
+                {activeSegment === "corporativo"
+                  ? "Peças e acabamentos para hotelaria, escritórios, cenografia e produções — emissão de NF e atendimento CNPJ."
+                  : activeSegment === "domestico"
+                  ? "Móveis sob medida e reformas para a sua casa, com consultoria de tecidos e cores."
+                  : "Mostrando todas as peças disponíveis para os dois perfis de atendimento."}
+              </p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar filters */}
             <aside className="lg:col-span-1 space-y-8">
