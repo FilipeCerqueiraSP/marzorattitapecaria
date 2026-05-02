@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, ChevronRight } from "lucide-react";
+import { Filter, Sofa, Armchair, BedDouble, ChevronRight, Building2, Home as HomeIcon, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import sofaSuedeAreia from "@/assets/catalogo/sofa-suede-areia.jpg";
 import poltronaVeludoTerracota from "@/assets/catalogo/poltrona-veludo-terracota.jpg";
@@ -10,8 +10,16 @@ import poltronaLinhoMarinho from "@/assets/catalogo/poltrona-linho-marinho.jpg";
 import cabeceiraVeludoCreme from "@/assets/catalogo/cabeceira-veludo-creme.jpg";
 import puffSuedeBordo from "@/assets/catalogo/puff-suede-bordo.jpg";
 
+type Segment = "todos" | "corporativo" | "domestico";
 type Category = "todos" | "sofas" | "poltronas" | "cabeceiras" | "puffs";
 type FabricType = "todos" | "suede" | "linho" | "couro" | "veludo" | "chenille";
+
+const segments: { key: Segment; label: string; sublabel: string; icon: React.ElementType }[] = [
+  { key: "todos", label: "Todos", sublabel: "Ver tudo", icon: Users },
+  { key: "corporativo", label: "Corporativo", sublabel: "CNPJ", icon: Building2 },
+  { key: "domestico", label: "Doméstico", sublabel: "CPF", icon: HomeIcon },
+];
+
 
 const categories: { key: Category; label: string; icon: React.ElementType }[] = [
   { key: "todos", label: "Todos", icon: Filter },
@@ -48,25 +56,28 @@ type Item = {
   fabric: Exclude<FabricType, "todos">;
   color: string;
   image: string;
+  segments: Exclude<Segment, "todos">[];
 };
 
 const placeholderItems: Item[] = [
-  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Areia", image: sofaSuedeAreia },
-  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Terracota", image: poltronaVeludoTerracota },
-  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Grafite", image: cabeceiraLinhoGrafite },
-  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Caramelo", image: puffCouroCaramelo },
-  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Oliva", image: sofaChenilleOliva },
-  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Marinho", image: poltronaLinhoMarinho },
-  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Creme", image: cabeceiraVeludoCreme },
-  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Bordô", image: puffSuedeBordo },
+  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Areia", image: sofaSuedeAreia, segments: ["domestico", "corporativo"] },
+  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Terracota", image: poltronaVeludoTerracota, segments: ["corporativo"] },
+  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Grafite", image: cabeceiraLinhoGrafite, segments: ["domestico"] },
+  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Caramelo", image: puffCouroCaramelo, segments: ["domestico", "corporativo"] },
+  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Oliva", image: sofaChenilleOliva, segments: ["domestico"] },
+  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Marinho", image: poltronaLinhoMarinho, segments: ["corporativo", "domestico"] },
+  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Creme", image: cabeceiraVeludoCreme, segments: ["domestico"] },
+  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Bordô", image: puffSuedeBordo, segments: ["corporativo"] },
 ];
 
 const Catalogo = () => {
+  const [activeSegment, setActiveSegment] = useState<Segment>("todos");
   const [activeCategory, setActiveCategory] = useState<Category>("todos");
   const [activeFabric, setActiveFabric] = useState<FabricType>("todos");
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   const filteredItems = placeholderItems.filter((item) => {
+    if (activeSegment !== "todos" && !item.segments.includes(activeSegment)) return false;
     if (activeCategory !== "todos" && item.category !== activeCategory) return false;
     if (activeFabric !== "todos" && item.fabric !== activeFabric) return false;
     if (selectedColor && item.color !== selectedColor) return false;
@@ -88,6 +99,53 @@ const Catalogo = () => {
             <span className="inline-block mt-2 text-xs bg-accent/10 text-accent px-3 py-1 rounded-full">
               Dados de exemplo — MongoDB em breve
             </span>
+          </div>
+
+          {/* Segment selector: Corporativo (CNPJ) / Doméstico (CPF) */}
+          <div className="mb-10">
+            <div className="flex flex-col items-center gap-3">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                Selecione o perfil de atendimento
+              </span>
+              <div
+                role="tablist"
+                aria-label="Perfil de atendimento"
+                className="inline-flex flex-wrap justify-center gap-1 p-1 bg-muted/60 stitch-border-light rounded-lg"
+              >
+                {segments.map((seg) => {
+                  const Icon = seg.icon;
+                  const active = activeSegment === seg.key;
+                  return (
+                    <button
+                      key={seg.key}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setActiveSegment(seg.key)}
+                      className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-md text-sm font-medium transition-all ${
+                        active
+                          ? "bg-card text-primary shadow-sm ring-1 ring-accent/40"
+                          : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+                      }`}
+                    >
+                      <Icon size={16} className={active ? "text-accent" : ""} />
+                      <span className="flex flex-col items-start leading-tight">
+                        <span>{seg.label}</span>
+                        <span className={`text-[10px] uppercase tracking-wider ${active ? "text-accent" : "text-muted-foreground/80"}`}>
+                          {seg.sublabel}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground max-w-md text-center">
+                {activeSegment === "corporativo"
+                  ? "Peças e acabamentos para hotelaria, escritórios, cenografia e produções — emissão de NF e atendimento CNPJ."
+                  : activeSegment === "domestico"
+                  ? "Móveis sob medida e reformas para a sua casa, com consultoria de tecidos e cores."
+                  : "Mostrando todas as peças disponíveis para os dois perfis de atendimento."}
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
