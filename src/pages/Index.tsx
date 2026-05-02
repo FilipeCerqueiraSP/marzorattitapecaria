@@ -16,7 +16,7 @@ const features = [
   {
     icon: Scissors,
     title: "Artesanato Local",
-    description: "Tradição e qualidade na Vila Brasilio Machado, São Paulo.",
+    description: "Tradição e qualidade em cada etapa do processo, móveis feito a mão.",
   },
 ];
 
@@ -82,7 +82,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl font-semibold text-primary mb-3">
-              Para quem trabalhamos
+              Para sua empresa e para sua casa!
             </h2>
             <div className="stitch-line max-w-[120px] mx-auto mb-4" />
             <p className="text-muted-foreground max-w-2xl mx-auto">
