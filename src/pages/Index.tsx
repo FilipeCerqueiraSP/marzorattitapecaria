@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Scissors, Palette, Sofa } from "lucide-react";
+import { ArrowRight, Scissors, Palette, Sofa, Building2, Home as HomeIcon, Check } from "lucide-react";
 import Layout from "@/components/Layout";
 
 const features = [
@@ -77,8 +77,93 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20">
+      {/* Audiências: Empresas / Residencial */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-3xl font-semibold text-primary mb-3">
+              Para quem trabalhamos
+            </h2>
+            <div className="stitch-line max-w-[120px] mx-auto mb-4" />
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Da sala de estar ao set de produção: atendemos com o mesmo cuidado
+              artesanal projetos residenciais e demandas corporativas.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+            {/* divisória vertical decorativa em desktop */}
+            <div className="hidden md:block stitch-line-vertical absolute left-1/2 top-4 bottom-4 -translate-x-1/2 opacity-60" />
+
+            {/* Empresas e Artistas */}
+            <div className="bg-card stitch-border-light p-8 md:p-10 hover:shadow-lg transition-shadow">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 text-primary mb-5">
+                <Building2 size={28} />
+              </div>
+              <h3 className="font-heading text-2xl font-semibold text-primary mb-2">
+                Empresas & Artistas
+              </h3>
+              <p className="text-muted-foreground mb-5 text-sm">
+                Parcerias com escritórios, hotéis, produtoras, cenógrafos e
+                artistas que buscam peças exclusivas e acabamento impecável.
+              </p>
+              <ul className="space-y-2 text-sm text-foreground/90 mb-6">
+                {[
+                  "Atendimento CNPJ e emissão de nota fiscal",
+                  "Produção em série e peças cenográficas",
+                  "Prazos e logística para projetos comerciais",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <Check size={16} className="text-accent mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/contato"
+                className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
+              >
+                Solicitar orçamento corporativo <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* Residencial */}
+            <div className="bg-card stitch-border-light p-8 md:p-10 hover:shadow-lg transition-shadow">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 text-accent mb-5">
+                <HomeIcon size={28} />
+              </div>
+              <h3 className="font-heading text-2xl font-semibold text-primary mb-2">
+                Residencial & Pessoa Física
+              </h3>
+              <p className="text-muted-foreground mb-5 text-sm">
+                Mobiliamos a sua casa com poltronas, sofás e cabeceiras feitos
+                sob medida — ou damos nova vida ao móvel que você já ama.
+              </p>
+              <ul className="space-y-2 text-sm text-foreground/90 mb-6">
+                {[
+                  "Móveis sob medida para o seu lar",
+                  "Reforma e restauração de estofados",
+                  "Consultoria de tecidos e cores",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <Check size={16} className="text-accent mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/catalogo"
+                className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
+              >
+                Explorar catálogo <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Portfólio */}
+      <section className="py-20 bg-card">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-3xl font-semibold text-primary mb-4">
             Visite nosso Portfólio
