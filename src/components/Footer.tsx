@@ -32,7 +32,7 @@ const Footer = () => {
                 <a href="tel:+551150584157" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                   <Phone size={16} /> (11) 5058-4157
                 </a>
-                <a href="https://api.whatsapp.com/send/?phone=5511953678228&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                <a href="https://wa.me/5511953678228?text=Bom%20dia,%20estou%20vindo%20do%20seu%20site,%20gostaria%20de%20tirar%20umas%20d%C3%BAdidas." target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                   <MessageCircle size={16} /> (11) 95367-8228
                 </a>
                 <a href="https://instagram.com/tapecaria.marzorati" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
