@@ -110,7 +110,7 @@ const Contato = () => {
                 </h3>
                 <div className="space-y-4">
                   <a
-                    href="https://wa.me/5511953678228"
+                    href="https://api.whatsapp.com/send/?phone=5511953678228&text&type=phone_number&app_absent=0"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
