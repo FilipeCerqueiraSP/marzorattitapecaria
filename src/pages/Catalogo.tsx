@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, ChevronRight, Building2, Home as HomeIcon, Users } from "lucide-react";
+import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import sofaSuedeAreia from "@/assets/catalogo/sofa-suede-areia.jpg";
 import poltronaVeludoTerracota from "@/assets/catalogo/poltrona-veludo-terracota.jpg";
