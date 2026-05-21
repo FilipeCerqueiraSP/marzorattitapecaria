@@ -2,6 +2,12 @@ import { Instagram, ImageIcon, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
 import { supabase } from "@/integrations/supabase/client";
+import destaque1 from "@/assets/destaque-1.png";
+import destaque2 from "@/assets/destaque-2.png";
+import destaque3 from "@/assets/destaque-3.png";
+import destaque4 from "@/assets/destaque-4.png";
+import destaque5 from "@/assets/destaque-5.png";
+import destaque6 from "@/assets/destaque-6.png";
 
 type InstagramPost = {
   id: string;
@@ -13,7 +19,15 @@ type InstagramPost = {
   timestamp: string;
 };
 
-const fixedPlaceholders = Array.from({ length: 3 }, (_, i) => i + 1);
+const destaques = [
+  { src: destaque1, alt: "Pufes em formato de cogumelo personalizados" },
+  { src: destaque2, alt: "Poltrona infantil estampada floral" },
+  { src: destaque3, alt: "Poltrona temática com estampa floral" },
+  { src: destaque4, alt: "Poltrona clássica com estrutura dourada" },
+  { src: destaque5, alt: "Sofá modular cinza sob medida" },
+  { src: destaque6, alt: "Banco curvo estofado em couro" },
+];
+
 
 const Portfolio = () => {
   const { data, isLoading, isError } = useQuery({
@@ -108,18 +122,19 @@ const Portfolio = () => {
               <h2 className="font-heading text-2xl font-semibold text-primary">
                 Galeria de Destaques
               </h2>
-              <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full ml-2">
-                Imagens a selecionar
-              </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {fixedPlaceholders.map((n) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {destaques.map((img, i) => (
                 <div
-                  key={n}
-                  className="aspect-[4/3] bg-muted stitch-border-light flex flex-col items-center justify-center gap-2 text-muted-foreground hover:bg-secondary/50 transition-colors"
+                  key={i}
+                  className="aspect-square overflow-hidden stitch-border-light bg-muted group"
                 >
-                  <ImageIcon size={32} className="opacity-30" />
-                  <span className="text-xs">Imagem destaque #{n}</span>
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
               ))}
             </div>
