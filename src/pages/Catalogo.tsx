@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, ChevronRight, Building2, Home as HomeIcon, Users } from "lucide-react";
+import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import sofaSuedeAreia from "@/assets/catalogo/sofa-suede-areia.jpg";
 import poltronaVeludoTerracota from "@/assets/catalogo/poltrona-veludo-terracota.jpg";
@@ -253,20 +253,9 @@ const Catalogo = () => {
                         <h3 className="font-heading text-lg font-semibold text-primary">
                           {item.name}
                         </h3>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded">
-                            {categories.find(c => c.key === item.category)?.label}
-                          </span>
-                          <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded">
-                            {fabricTypes.find(f => f.key === item.fabric)?.label}
-                          </span>
-                          <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                            {item.color}
-                          </span>
-                        </div>
-                        <button className="mt-4 text-sm text-accent flex items-center gap-1 hover:gap-2 transition-all">
-                          Ver detalhes <ChevronRight size={14} />
-                        </button>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          {categories.find(c => c.key === item.category)?.label}, {fabricTypes.find(f => f.key === item.fabric)?.label}, {item.color}
+                        </p>
                       </div>
                     </div>
                   ))}
