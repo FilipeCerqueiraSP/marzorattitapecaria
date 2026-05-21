@@ -1,4 +1,4 @@
-import { ImageIcon } from "lucide-react";
+import { Instagram, ImageIcon } from "lucide-react";
 import Layout from "@/components/Layout";
 import destaque1 from "@/assets/destaque-1.png";
 import destaque2 from "@/assets/destaque-2.png";
