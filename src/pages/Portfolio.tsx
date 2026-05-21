@@ -54,6 +54,28 @@ const Portfolio = () => {
               ))}
             </div>
           </div>
+          {/* Instagram Feed Mockup */}
+          <div className="mt-16">
+            <div className="flex items-center gap-2 mb-6">
+              <Instagram size={20} className="text-accent" />
+              <h2 className="font-heading text-2xl font-semibold text-primary">
+                Feed do Instagram
+              </h2>
+              <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full ml-2">
+                Em breve
+              </span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {Array.from({ length: 6 }, (_, i) => (
+                <div
+                  key={i}
+                  className="aspect-square bg-muted stitch-border-light flex flex-col items-center justify-center gap-2 text-muted-foreground"
+                >
+                  <Instagram size={28} className="opacity-30" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
