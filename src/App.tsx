@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import Portfolio from "./pages/Portfolio.tsx";
 import Catalogo from "./pages/Catalogo.tsx";
 import Contato from "./pages/Contato.tsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/privacidade" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
