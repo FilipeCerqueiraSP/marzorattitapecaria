@@ -1,4 +1,4 @@
-import { Instagram, Phone, MessageCircle, Shield } from "lucide-react";
+import { Instagram, Phone, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -42,11 +42,13 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-dashed border-primary-foreground/20 text-center text-xs text-primary-foreground/50 space-y-2">
-            <p>© {new Date().getFullYear()} Tapeçaria Marzorati. Todos os direitos reservados.</p>
-            <a href="/privacidade" className="inline-flex items-center gap-1.5 hover:text-primary-foreground transition-colors">
-              <Shield size={12} /> Política de Privacidade
-            </a>
+          <div className="mt-8 pt-6 border-t border-dashed border-primary-foreground/20 text-center text-xs text-primary-foreground/50">
+            <p>
+              © {new Date().getFullYear()} Tapeçaria Marzorati. Todos os direitos reservados.{" "}
+              <a href="/privacidade" className="hover:text-primary-foreground transition-colors underline underline-offset-2">Política de Privacidade</a>
+              {" · "}
+              <a href="/termos" className="hover:text-primary-foreground transition-colors underline underline-offset-2">Termos de Uso</a>
+            </p>
           </div>
         </div>
       </div>
