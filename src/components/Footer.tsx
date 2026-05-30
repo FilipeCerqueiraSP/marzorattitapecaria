@@ -35,8 +35,8 @@ const Footer = () => {
                 <a href="https://wa.me/5511953678228" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                   <MessageCircle size={16} /> (11) 95367-8228
                 </a>
-                <a href="https://instagram.com/tapecaria.marzorati" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                  <Instagram size={16} /> @tapecaria.marzorati
+                <a href="https://instagram.com/marzoratitapecaria" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+                  <Instagram size={16} /> @marzoratitapecaria
                 </a>
               </div>
             </div>
