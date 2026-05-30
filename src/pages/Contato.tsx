@@ -157,15 +157,15 @@ const Contato = () => {
                   </a>
 
                   <a
-                    href="tel:+551150584157"
+                    href="mailto:Moraxari@gmail.com"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
                   >
                     <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                      <Phone size={20} className="text-accent" />
+                      <Mail size={20} className="text-accent" />
                     </div>
                     <div>
-                      <span className="text-sm font-medium text-foreground">Telefone</span>
-                      <p className="text-xs text-muted-foreground">(11) 5058-4157</p>
+                      <span className="text-sm font-medium text-foreground">Email</span>
+                      <p className="text-xs text-muted-foreground">Moraxari@gmail.com</p>
                     </div>
                   </a>
 
