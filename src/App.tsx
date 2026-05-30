@@ -10,6 +10,7 @@ import Contato from "./pages/Contato.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import TermsOfService from "./pages/TermsOfService.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Unsubscribe from "./pages/Unsubscribe.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/privacidade" element={<PrivacyPolicy />} />
           <Route path="/termos" element={<TermsOfService />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
