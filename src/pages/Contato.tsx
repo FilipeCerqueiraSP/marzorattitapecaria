@@ -1,15 +1,42 @@
 import { useState } from "react";
-import { Send, Phone, Instagram, MessageCircle, MapPin } from "lucide-react";
+import { Send, Phone, Instagram, MessageCircle, MapPin, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const Contato = () => {
   const [form, setForm] = useState({ nome: "", email: "", telefone: "", mensagem: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder — será integrado com envio de email
-    setSubmitted(true);
+    setSending(true);
+    try {
+      const idempotencyKey = `contact-${crypto.randomUUID()}`;
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-form-notification",
+          idempotencyKey,
+          templateData: {
+            name: form.nome,
+            email: form.email,
+            phone: form.telefone,
+            message: form.mensagem,
+          },
+        },
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err: any) {
+      toast({
+        title: "Erro ao enviar",
+        description: err?.message || "Tente novamente em instantes.",
+        variant: "destructive",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -94,9 +121,14 @@ const Contato = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 bg-accent text-accent-foreground py-3 rounded-md font-medium hover:opacity-90 transition-opacity"
+                    disabled={sending}
+                    className="w-full flex items-center justify-center gap-2 bg-accent text-accent-foreground py-3 rounded-md font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
                   >
-                    <Send size={18} /> Enviar Mensagem
+                    {sending ? (
+                      <><Loader2 size={18} className="animate-spin" /> Enviando...</>
+                    ) : (
+                      <><Send size={18} /> Enviar Mensagem</>
+                    )}
                   </button>
                 </form>
               )}
