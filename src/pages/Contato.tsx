@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Phone, Instagram, MessageCircle, MapPin, Loader2 } from "lucide-react";
+import { Send, Mail, Instagram, MessageCircle, MapPin, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
