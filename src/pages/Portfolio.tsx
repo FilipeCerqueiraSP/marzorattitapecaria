@@ -1,22 +1,32 @@
-import { useState } from "react";
-import { Instagram, Palette } from "lucide-react";
+import { useEffect } from "react";
+import { Instagram, ImageIcon } from "lucide-react";
 import Layout from "@/components/Layout";
+import destaque1 from "@/assets/destaque-1.png";
+import destaque2 from "@/assets/destaque-2.png";
+import destaque3 from "@/assets/destaque-3.png";
+import destaque4 from "@/assets/destaque-4.png";
+import destaque5 from "@/assets/destaque-5.png";
+import destaque6 from "@/assets/destaque-6.png";
 
-const colorFilters = [
-  { label: "Claro", value: "claro", color: "#f5f5dc" },
-  { label: "Escuro", value: "escuro", color: "#2c2c2c" },
-  { label: "Cinza", value: "cinza", color: "#808080" },
-  { label: "Vermelho", value: "vermelho", color: "#e74c3c" },
-  { label: "Rosa", value: "rosa", color: "#ff69b4" },
-  { label: "Azul", value: "azul", color: "#3498db" },
-  { label: "Verde", value: "verde", color: "#2ecc71" },
-  { label: "Amarelo", value: "amarelo", color: "#f1c40f" },
-  { label: "Marrom", value: "marrom", color: "#8b4513" },
-  { label: "Roxo", value: "roxo", color: "#9b59b6" },
+const destaques = [
+  { src: destaque1, alt: "Pufes em formato de cogumelo personalizados" },
+  { src: destaque2, alt: "Poltrona infantil estampada floral" },
+  { src: destaque3, alt: "Poltrona temática com estampa floral" },
+  { src: destaque4, alt: "Poltrona clássica com estrutura dourada" },
+  { src: destaque5, alt: "Sofá modular cinza sob medida" },
+  { src: destaque6, alt: "Banco curvo estofado em couro" },
 ];
 
 const Portfolio = () => {
-  const [activeColor, setActiveColor] = useState<string | null>(null);
+  useEffect(() => {
+    const existing = document.querySelector('script[src="https://w.behold.so/widget.js"]');
+    if (!existing) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "https://w.behold.so/widget.js";
+      document.head.appendChild(s);
+    }
+  }, []);
 
   return (
     <Layout>
@@ -32,55 +42,31 @@ const Portfolio = () => {
             </p>
           </div>
 
-          {/* Filtros de Cor */}
-          <div className="mb-10">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Palette size={20} className="text-accent" />
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <ImageIcon size={20} className="text-accent" />
               <h2 className="font-heading text-2xl font-semibold text-primary">
-                Filtros por Cor
+                Galeria de Destaques
               </h2>
             </div>
-            <div className="flex flex-wrap justify-center gap-3">
-              {colorFilters.map((cf) => (
-                <button
-                  key={cf.value}
-                  onClick={() =>
-                    setActiveColor(activeColor === cf.value ? null : cf.value)
-                  }
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                    activeColor === cf.value
-                      ? "bg-accent text-accent-foreground border-accent"
-                      : "bg-card text-foreground border-border hover:border-accent/50"
-                  }`}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {destaques.map((img, i) => (
+                <div
+                  key={i}
+                  className="aspect-square overflow-hidden stitch-border-light bg-muted group"
                 >
-                  <span
-                    className="w-4 h-4 rounded-full border border-black/10"
-                    style={{ backgroundColor: cf.color }}
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  {cf.label}
-                </button>
+                </div>
               ))}
             </div>
           </div>
-
-          {/* Placeholder para galeria futura */}
-          <div className="stitch-border-light bg-card p-12 text-center mb-16">
-            <Palette size={48} className="mx-auto mb-4 text-muted-foreground/50" />
-            <h3 className="font-heading text-xl font-semibold text-primary mb-2">
-              Galeria em construção
-            </h3>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              As fotos do portfólio serão carregadas em breve via integração com o banco de dados.
-            </p>
-            {activeColor && (
-              <p className="mt-4 text-sm text-accent">
-                Filtro selecionado: <span className="font-semibold capitalize">{activeColor}</span>
-              </p>
-            )}
-          </div>
-
           {/* Instagram Feed — Behold.so */}
-          <div>
+          <div className="mt-16">
             <div className="flex items-center gap-2 mb-6">
               <Instagram size={20} className="text-accent" />
               <h2 className="font-heading text-2xl font-semibold text-primary">
