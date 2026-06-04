@@ -212,7 +212,7 @@ const Catalogo = () => {
                             ? "border-accent shadow-md"
                             : "border-border"
                         }`}
-                        style={{ backgroundColor: `hsl(${color.hsl})` }}
+                        style={color.isGradient ? { background: color.hsl } : { backgroundColor: `hsl(${color.hsl})` }}
                       />
                       <span className="text-[10px] text-muted-foreground">{color.name}</span>
                     </button>
