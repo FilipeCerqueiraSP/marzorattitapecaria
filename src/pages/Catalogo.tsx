@@ -302,10 +302,7 @@ const Catalogo = () => {
                         </div>
                       )}
                       <div className="p-5">
-                        <h3 className="font-heading text-lg font-semibold text-primary">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mt-2">
+                        <p className="text-sm text-muted-foreground">
                           {[item.tipo_movel, item.tecido, item.cor].filter(Boolean).join(" · ")}
                         </p>
                       </div>
