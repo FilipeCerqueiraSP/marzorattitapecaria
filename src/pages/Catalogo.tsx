@@ -47,17 +47,56 @@ const colorSwatches = [
 ];
 
 type Item = {
-  id: number;
+  id: string;
   name: string;
-  category: Exclude<Category, "todos">;
-  fabric: Exclude<FabricType, "todos">;
-  color: string;
-  segments: Exclude<Segment, "todos">[];
+  imageUrl: string;
 };
 
-const placeholderItems: Item[] = [
-  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Claro", segments: ["domestico", "corporativo"] },
-  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Marrom", segments: ["corporativo"] },
+const Catalogo = () => {
+  const [activeSegment, setActiveSegment] = useState<Segment>("todos");
+  const [activeCategory, setActiveCategory] = useState<Category>("todos");
+  const [activeFabric, setActiveFabric] = useState<FabricType>("todos");
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadItems = async () => {
+      setLoading(true);
+      setError(null);
+      const { data, error } = await supabase.storage
+        .from("catalogo")
+        .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+
+      const files = (data ?? []).filter(
+        (f) => f.name && !f.name.startsWith(".") && /\.(jpe?g|png|webp|gif|avif)$/i.test(f.name)
+      );
+
+      const mapped: Item[] = files.map((f) => {
+        const { data: pub } = supabase.storage.from("catalogo").getPublicUrl(f.name);
+        return {
+          id: f.id ?? f.name,
+          name: f.name.replace(/\.[^.]+$/, ""),
+          imageUrl: pub.publicUrl,
+        };
+      });
+
+      setItems(mapped);
+      setLoading(false);
+    };
+
+    loadItems();
+  }, []);
+
+  const filteredItems = items;
+
   { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Cinza", segments: ["domestico"] },
   { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Amarelo", segments: ["domestico", "corporativo"] },
   { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Verde", segments: ["domestico"] },
