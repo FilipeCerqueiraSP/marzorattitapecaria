@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 
 type Segment = "todos" | "corporativo" | "domestico";
@@ -47,56 +46,38 @@ const colorSwatches = [
 ];
 
 type Item = {
-  id: string;
+  id: number;
   name: string;
-  imageUrl: string;
+  category: Exclude<Category, "todos">;
+  fabric: Exclude<FabricType, "todos">;
+  color: string;
+  segments: Exclude<Segment, "todos">[];
 };
+
+const placeholderItems: Item[] = [
+  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Claro", segments: ["domestico", "corporativo"] },
+  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Marrom", segments: ["corporativo"] },
+  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Cinza", segments: ["domestico"] },
+  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Amarelo", segments: ["domestico", "corporativo"] },
+  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Verde", segments: ["domestico"] },
+  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Azul", segments: ["corporativo", "domestico"] },
+  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Claro", segments: ["domestico"] },
+  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Vermelho", segments: ["corporativo"] },
+];
 
 const Catalogo = () => {
   const [activeSegment, setActiveSegment] = useState<Segment>("todos");
   const [activeCategory, setActiveCategory] = useState<Category>("todos");
   const [activeFabric, setActiveFabric] = useState<FabricType>("todos");
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [items, setItems] = useState<Item[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadItems = async () => {
-      setLoading(true);
-      setError(null);
-      const { data, error } = await supabase.storage
-        .from("catalogo")
-        .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
-
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-
-      const files = (data ?? []).filter(
-        (f) => f.name && !f.name.startsWith(".") && /\.(jpe?g|png|webp|gif|avif)$/i.test(f.name)
-      );
-
-      const mapped: Item[] = files.map((f) => {
-        const { data: pub } = supabase.storage.from("catalogo").getPublicUrl(f.name);
-        return {
-          id: f.id ?? f.name,
-          name: f.name.replace(/\.[^.]+$/, ""),
-          imageUrl: pub.publicUrl,
-        };
-      });
-
-      setItems(mapped);
-      setLoading(false);
-    };
-
-    loadItems();
-  }, []);
-
-  const filteredItems = items;
-
+  const filteredItems = placeholderItems.filter((item) => {
+    if (activeSegment !== "todos" && !item.segments.includes(activeSegment)) return false;
+    if (activeCategory !== "todos" && item.category !== activeCategory) return false;
+    if (activeFabric !== "todos" && item.fabric !== activeFabric) return false;
+    if (selectedColor && item.color !== selectedColor) return false;
+    return true;
+  });
 
   return (
     <Layout>
@@ -242,49 +223,30 @@ const Catalogo = () => {
 
             {/* Product grid */}
             <div className="lg:col-span-3">
-              {loading ? (
-                <div className="stitch-border-light p-12 text-center text-muted-foreground flex items-center justify-center gap-2">
-                  <Loader2 className="animate-spin" size={18} /> Carregando catálogo do banco…
-                </div>
-              ) : error ? (
-                <div className="stitch-border-light p-12 text-center text-destructive">
-                  Erro ao conectar com o banco: {error}
-                </div>
-              ) : filteredItems.length === 0 ? (
+              {filteredItems.length === 0 ? (
                 <div className="stitch-border-light p-12 text-center text-muted-foreground">
-                  Nenhum item encontrado. Faça upload de imagens no bucket <strong>catalogo</strong> do Lovable Cloud.
+                  Nenhum item encontrado com os filtros selecionados.
                 </div>
               ) : (
-                <>
-                  <p className="text-xs text-muted-foreground mb-4">
-                    {filteredItems.length} {filteredItems.length === 1 ? "item" : "itens"} carregados do Lovable Cloud Storage.
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {filteredItems.map((item) => (
-                      <div
-                        key={item.id}
-                        className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
-                      >
-                        <div className="aspect-[4/3] bg-muted overflow-hidden">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.name}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                        <div className="p-5">
-                          <h3 className="font-heading text-base font-semibold text-primary truncate">
-                            {item.name}
-                          </h3>
-                        </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {filteredItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
+                    >
+                      <div className="p-5">
+                        <h3 className="font-heading text-lg font-semibold text-primary">
+                          {item.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          {categories.find(c => c.key === item.category)?.label}, {fabricTypes.find(f => f.key === item.fabric)?.label}, {item.color}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                </>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
-
           </div>
         </div>
       </section>
