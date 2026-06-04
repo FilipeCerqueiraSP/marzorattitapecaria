@@ -170,7 +170,7 @@ const Contato = () => {
                   </a>
 
                   <a
-                    href="https://instagram.com/tapecaria.marzorati"
+                    href="https://www.instagram.com/marzoratitapecaria/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-md bg-background hover:bg-muted transition-colors"
@@ -180,7 +180,7 @@ const Contato = () => {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground">Instagram</span>
-                      <p className="text-xs text-muted-foreground">@tapecaria.marzorati</p>
+                      <p className="text-xs text-muted-foreground">@marzoratitapecaria</p>
                     </div>
                   </a>
                 </div>
