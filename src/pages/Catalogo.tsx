@@ -25,9 +25,9 @@ const fabricTypes: { key: FabricType; label: string }[] = [
   { key: "todos", label: "Todos" },
   { key: "suede", label: "Suede" },
   { key: "linho", label: "Linho" },
-  { key: "couro", label: "Couro Sintético" },
+  { key: "couro", label: "Couro" },
   { key: "veludo", label: "Veludo" },
-  { key: "chenille", label: "Chenille" },
+  { key: "couro-sintetico", label: "Couro Sintético" },
 ];
 
 const colorSwatches = [
