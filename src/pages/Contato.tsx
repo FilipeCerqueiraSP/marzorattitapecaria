@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
 const Contato = () => {
-  const [form, setForm] = useState({ nome: "", email: "", telefone: "", mensagem: "" });
+  const [form, setForm] = useState({ nome: "", email: "", telefone: "", mensagem: "", tipo_cliente: "CPF" });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -68,7 +68,7 @@ const Contato = () => {
                     Entraremos em contato em breve.
                   </p>
                   <button
-                    onClick={() => { setSubmitted(false); setForm({ nome: "", email: "", telefone: "", mensagem: "" }); }}
+                    onClick={() => { setSubmitted(false); setForm({ nome: "", email: "", telefone: "", mensagem: "", tipo_cliente: "CPF" }); }}
                     className="mt-4 text-accent text-sm underline"
                   >
                     Enviar outra mensagem
@@ -119,6 +119,34 @@ const Contato = () => {
                       placeholder="Descreva o que você precisa..."
                     />
                   </div>
+
+                  <div className="flex justify-center">
+                    <div className="flex items-center gap-6">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="tipo_cliente"
+                          value="CPF"
+                          checked={form.tipo_cliente === "CPF"}
+                          onChange={(e) => setForm({ ...form, tipo_cliente: e.target.value })}
+                          className="w-4 h-4 text-accent border-input focus:ring-accent"
+                        />
+                        <span className="text-sm text-foreground">CPF</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="tipo_cliente"
+                          value="CNPJ"
+                          checked={form.tipo_cliente === "CNPJ"}
+                          onChange={(e) => setForm({ ...form, tipo_cliente: e.target.value })}
+                          className="w-4 h-4 text-accent border-input focus:ring-accent"
+                        />
+                        <span className="text-sm text-foreground">CNPJ</span>
+                      </label>
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
                     disabled={sending}
