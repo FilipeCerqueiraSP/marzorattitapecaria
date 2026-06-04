@@ -58,41 +58,55 @@ type Item = {
 };
 
 // Normalização: converte valores do banco em chaves dos filtros
-const normalize = (s: string) =>
-  s
+const normalize = (s: unknown) =>
+  String(s ?? "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
 
-const categoryFromTipo = (tipo: string | null): Category | null => {
-  if (!tipo) return null;
-  const n = normalize(tipo);
-  if (n.includes("sofa")) return "sofas";
-  if (n.includes("poltrona")) return "poltronas";
-  if (n.includes("cabeceira")) return "cabeceiras";
-  if (n.includes("puff")) return "puffs";
-  return null;
+const toStringList = (v: unknown): string[] => {
+  if (v == null) return [];
+  if (Array.isArray(v)) return v.flatMap(toStringList);
+  return String(v)
+    .split(/[,;/|]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
 };
 
-const fabricFromTecido = (tecido: string | null): FabricType | null => {
-  if (!tecido) return null;
-  const n = normalize(tecido);
-  if (n.includes("sintetico")) return "couro-sintetico";
-  if (n.includes("couro")) return "couro";
-  if (n.includes("suede")) return "suede";
-  if (n.includes("linho")) return "linho";
-  if (n.includes("veludo")) return "veludo";
-  return null;
+const categoryFromTipo = (tipo: unknown): Category[] => {
+  const parts = toStringList(tipo).map(normalize);
+  const out = new Set<Category>();
+  for (const n of parts) {
+    if (n.includes("sofa")) out.add("sofas");
+    if (n.includes("poltrona")) out.add("poltronas");
+    if (n.includes("cabeceira")) out.add("cabeceiras");
+    if (n.includes("puff")) out.add("puffs");
+  }
+  return [...out];
+};
+
+const fabricFromTecido = (tecido: unknown): FabricType[] => {
+  const parts = toStringList(tecido).map(normalize);
+  const out = new Set<FabricType>();
+  for (const n of parts) {
+    if (n.includes("sintetico")) out.add("couro-sintetico");
+    else if (n.includes("couro")) out.add("couro");
+    if (n.includes("suede")) out.add("suede");
+    if (n.includes("linho")) out.add("linho");
+    if (n.includes("veludo")) out.add("veludo");
+  }
+  return [...out];
 };
 
 const matchSegment = (seg: Item["segmento"], target: Exclude<Segment, "todos">) => {
-  if (!seg) return true;
-  const list = Array.isArray(seg) ? seg : [seg];
+  const list = toStringList(seg);
+  if (list.length === 0) return true;
   const targetKey = target === "corporativo" ? "cnpj" : "cpf";
   const targetAlt = target === "corporativo" ? "corporativo" : "domestico";
   return list.map(normalize).some((s) => s.includes(targetKey) || s.includes(targetAlt));
 };
+
 
 const Catalogo = () => {
   const [activeSegment, setActiveSegment] = useState<Segment>("todos");
