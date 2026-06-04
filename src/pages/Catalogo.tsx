@@ -139,8 +139,9 @@ const Catalogo = () => {
 
   const filteredItems = items.filter((item) => {
     if (activeSegment !== "todos" && !matchSegment(item.segmento, activeSegment)) return false;
-    if (activeCategory !== "todos" && categoryFromTipo(item.tipo_movel) !== activeCategory) return false;
-    if (activeFabric !== "todos" && fabricFromTecido(item.tecido) !== activeFabric) return false;
+    if (activeCategory !== "todos" && !categoryFromTipo(item.tipo_movel).includes(activeCategory)) return false;
+    if (activeFabric !== "todos" && !fabricFromTecido(item.tecido).includes(activeFabric)) return false;
+
     if (selectedColor && normalize(item.cor ?? "") !== normalize(selectedColor)) return false;
     return true;
   });
