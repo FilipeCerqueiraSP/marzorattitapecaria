@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 
 type Segment = "todos" | "corporativo" | "domestico";
 type Category = "todos" | "sofas" | "poltronas" | "cabeceiras" | "puffs";
-type FabricType = "todos" | "suede" | "linho" | "couro" | "veludo" | "chenille";
+type FabricType = "todos" | "suede" | "linho" | "couro" | "veludo" | "couro-sintetico";
 
 const segments: { key: Segment; label: string; sublabel: string; icon: React.ElementType }[] = [
   { key: "todos", label: "Todos", sublabel: "Ver tudo", icon: Users },
@@ -25,9 +25,9 @@ const fabricTypes: { key: FabricType; label: string }[] = [
   { key: "todos", label: "Todos" },
   { key: "suede", label: "Suede" },
   { key: "linho", label: "Linho" },
-  { key: "couro", label: "Couro Sintético" },
+  { key: "couro", label: "Couro" },
   { key: "veludo", label: "Veludo" },
-  { key: "chenille", label: "Chenille" },
+  { key: "couro-sintetico", label: "Couro Sintético" },
 ];
 
 const colorSwatches = [
