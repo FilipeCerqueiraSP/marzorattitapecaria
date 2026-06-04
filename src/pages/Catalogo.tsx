@@ -242,30 +242,49 @@ const Catalogo = () => {
 
             {/* Product grid */}
             <div className="lg:col-span-3">
-              {filteredItems.length === 0 ? (
+              {loading ? (
+                <div className="stitch-border-light p-12 text-center text-muted-foreground flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" size={18} /> Carregando catálogo do banco…
+                </div>
+              ) : error ? (
+                <div className="stitch-border-light p-12 text-center text-destructive">
+                  Erro ao conectar com o banco: {error}
+                </div>
+              ) : filteredItems.length === 0 ? (
                 <div className="stitch-border-light p-12 text-center text-muted-foreground">
-                  Nenhum item encontrado com os filtros selecionados.
+                  Nenhum item encontrado. Faça upload de imagens no bucket <strong>catalogo</strong> do Lovable Cloud.
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {filteredItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
-                    >
-                      <div className="p-5">
-                        <h3 className="font-heading text-lg font-semibold text-primary">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mt-2">
-                          {categories.find(c => c.key === item.category)?.label}, {fabricTypes.find(f => f.key === item.fabric)?.label}, {item.color}
-                        </p>
+                <>
+                  <p className="text-xs text-muted-foreground mb-4">
+                    {filteredItems.length} {filteredItems.length === 1 ? "item" : "itens"} carregados do Lovable Cloud Storage.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {filteredItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
+                      >
+                        <div className="aspect-[4/3] bg-muted overflow-hidden">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="p-5">
+                          <h3 className="font-heading text-base font-semibold text-primary truncate">
+                            {item.name}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
+
           </div>
         </div>
       </section>
