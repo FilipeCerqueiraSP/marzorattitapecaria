@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
 import Layout from "@/components/Layout";
-import sofaSuedeAreia from "@/assets/catalogo/sofa-suede-areia.jpg";
-import poltronaVeludoTerracota from "@/assets/catalogo/poltrona-veludo-terracota.jpg";
-import cabeceiraLinhoGrafite from "@/assets/catalogo/cabeceira-linho-grafite.jpg";
-import puffCouroCaramelo from "@/assets/catalogo/puff-couro-caramelo.jpg";
-import sofaChenilleOliva from "@/assets/catalogo/sofa-chenille-oliva.jpg";
-import poltronaLinhoMarinho from "@/assets/catalogo/poltrona-linho-marinho.jpg";
-import cabeceiraVeludoCreme from "@/assets/catalogo/cabeceira-veludo-creme.jpg";
-import puffSuedeBordo from "@/assets/catalogo/puff-suede-bordo.jpg";
 
 type Segment = "todos" | "corporativo" | "domestico";
 type Category = "todos" | "sofas" | "poltronas" | "cabeceiras" | "puffs";
@@ -39,14 +31,16 @@ const fabricTypes: { key: FabricType; label: string }[] = [
 ];
 
 const colorSwatches = [
-  { name: "Areia", hsl: "40 30% 80%" },
-  { name: "Terracota", hsl: "15 55% 45%" },
-  { name: "Grafite", hsl: "0 0% 30%" },
-  { name: "Marinho", hsl: "220 40% 25%" },
-  { name: "Oliva", hsl: "90 25% 40%" },
-  { name: "Creme", hsl: "42 40% 92%" },
-  { name: "Bordô", hsl: "350 50% 30%" },
-  { name: "Caramelo", hsl: "30 50% 50%" },
+  { name: "Claro", hsl: "40 20% 90%" },
+  { name: "Escuro", hsl: "0 0% 15%" },
+  { name: "Cinza", hsl: "0 0% 50%" },
+  { name: "Vermelho", hsl: "0 70% 50%" },
+  { name: "Rosa", hsl: "340 70% 75%" },
+  { name: "Azul", hsl: "220 70% 50%" },
+  { name: "Verde", hsl: "120 50% 40%" },
+  { name: "Amarelo", hsl: "50 90% 60%" },
+  { name: "Marrom", hsl: "25 50% 30%" },
+  { name: "Roxo", hsl: "270 60% 50%" },
 ];
 
 type Item = {
@@ -55,19 +49,18 @@ type Item = {
   category: Exclude<Category, "todos">;
   fabric: Exclude<FabricType, "todos">;
   color: string;
-  image: string;
   segments: Exclude<Segment, "todos">[];
 };
 
 const placeholderItems: Item[] = [
-  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Areia", image: sofaSuedeAreia, segments: ["domestico", "corporativo"] },
-  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Terracota", image: poltronaVeludoTerracota, segments: ["corporativo"] },
-  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Grafite", image: cabeceiraLinhoGrafite, segments: ["domestico"] },
-  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Caramelo", image: puffCouroCaramelo, segments: ["domestico", "corporativo"] },
-  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Oliva", image: sofaChenilleOliva, segments: ["domestico"] },
-  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Marinho", image: poltronaLinhoMarinho, segments: ["corporativo", "domestico"] },
-  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Creme", image: cabeceiraVeludoCreme, segments: ["domestico"] },
-  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Bordô", image: puffSuedeBordo, segments: ["corporativo"] },
+  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Claro", segments: ["domestico", "corporativo"] },
+  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Marrom", segments: ["corporativo"] },
+  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Cinza", segments: ["domestico"] },
+  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Amarelo", segments: ["domestico", "corporativo"] },
+  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Verde", segments: ["domestico"] },
+  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Azul", segments: ["corporativo", "domestico"] },
+  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Claro", segments: ["domestico"] },
+  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Vermelho", segments: ["corporativo"] },
 ];
 
 const Catalogo = () => {
@@ -239,16 +232,6 @@ const Catalogo = () => {
                       key={item.id}
                       className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
                     >
-                      <div className="aspect-[4/3] bg-muted overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={`${item.name} - ${item.color}`}
-                          loading="lazy"
-                          width={800}
-                          height={640}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
                       <div className="p-5">
                         <h3 className="font-heading text-lg font-semibold text-primary">
                           {item.name}
