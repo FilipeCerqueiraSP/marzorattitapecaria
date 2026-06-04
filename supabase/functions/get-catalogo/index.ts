@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
       tipo_movel: d.tipo_movel ?? null,
       tecido: d.tecido ?? null,
       cor: d.cor ?? null,
-      segmento: d.segmento ?? d.segmentos ?? null,
+      segmento: d.tipo_cliente ?? d.segmento ?? d.segmentos ?? null,
       foto: d.foto ?? d.imagem ?? d.image ?? null,
       descricao: d.descricao ?? null,
     }));

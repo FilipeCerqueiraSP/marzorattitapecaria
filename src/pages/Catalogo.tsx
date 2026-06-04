@@ -87,9 +87,11 @@ const fabricFromTecido = (tecido: string | null): FabricType | null => {
 };
 
 const matchSegment = (seg: Item["segmento"], target: Exclude<Segment, "todos">) => {
-  if (!seg) return true; // sem segmento definido = aparece em todos
+  if (!seg) return true;
   const list = Array.isArray(seg) ? seg : [seg];
-  return list.map(normalize).some((s) => s.includes(target));
+  const targetKey = target === "corporativo" ? "cnpj" : "cpf";
+  const targetAlt = target === "corporativo" ? "corporativo" : "domestico";
+  return list.map(normalize).some((s) => s.includes(targetKey) || s.includes(targetAlt));
 };
 
 const Catalogo = () => {
