@@ -14,19 +14,31 @@ const Contato = () => {
     setSending(true);
     try {
       const idempotencyKey = `contact-${crypto.randomUUID()}`;
-      const { error } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-form-notification",
-          idempotencyKey,
-          templateData: {
-            name: form.nome,
-            email: form.email,
-            phone: form.telefone,
-            message: form.mensagem,
+      const [emailRes, clienteRes] = await Promise.all([
+        supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "contact-form-notification",
+            idempotencyKey,
+            templateData: {
+              name: form.nome,
+              email: form.email,
+              phone: form.telefone,
+              message: form.mensagem,
+            },
           },
-        },
-      });
-      if (error) throw error;
+        }),
+        supabase.functions.invoke("save-cliente", {
+          body: {
+            nome: form.nome,
+            email: form.email,
+            telefone: form.telefone,
+            tipo_cliente: form.tipo_cliente,
+            mensagem: form.mensagem,
+          },
+        }),
+      ]);
+      if (emailRes.error) throw emailRes.error;
+      if (clienteRes.error) throw clienteRes.error;
       setSubmitted(true);
     } catch (err: any) {
       toast({
