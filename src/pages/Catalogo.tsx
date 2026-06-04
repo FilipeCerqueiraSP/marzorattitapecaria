@@ -54,16 +54,7 @@ type Item = {
   segments: Exclude<Segment, "todos">[];
 };
 
-const placeholderItems: Item[] = [
-  { id: 1, name: "Sofá Toscana 3 lugares", category: "sofas", fabric: "suede", color: "Claro", segments: ["domestico", "corporativo"] },
-  { id: 2, name: "Poltrona Bordeaux", category: "poltronas", fabric: "veludo", color: "Marrom", segments: ["corporativo"] },
-  { id: 3, name: "Cabeceira Capitonê Grafite", category: "cabeceiras", fabric: "linho", color: "Cinza", segments: ["domestico"] },
-  { id: 4, name: "Puff Redondo Caramelo", category: "puffs", fabric: "couro", color: "Amarelo", segments: ["domestico", "corporativo"] },
-  { id: 5, name: "Sofá Milano 2 lugares", category: "sofas", fabric: "chenille", color: "Verde", segments: ["domestico"] },
-  { id: 6, name: "Poltrona Wing Clássica", category: "poltronas", fabric: "linho", color: "Azul", segments: ["corporativo", "domestico"] },
-  { id: 7, name: "Cabeceira Ripada Creme", category: "cabeceiras", fabric: "veludo", color: "Claro", segments: ["domestico"] },
-  { id: 8, name: "Puff Quadrado Bordô", category: "puffs", fabric: "suede", color: "Vermelho", segments: ["corporativo"] },
-];
+const placeholderItems: Item[] = [];
 
 const Catalogo = () => {
   const [activeSegment, setActiveSegment] = useState<Segment>("todos");
