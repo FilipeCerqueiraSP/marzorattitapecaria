@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
+import { supabase } from "@/integrations/supabase/client";
 
 type Segment = "todos" | "corporativo" | "domestico";
 type Category = "todos" | "sofas" | "poltronas" | "cabeceiras" | "puffs";
@@ -46,15 +47,50 @@ const colorSwatches = [
 ];
 
 type Item = {
-  id: number;
+  id: string;
   name: string;
-  category: Exclude<Category, "todos">;
-  fabric: Exclude<FabricType, "todos">;
-  color: string;
-  segments: Exclude<Segment, "todos">[];
+  tipo_movel: string | null;
+  tecido: string | null;
+  cor: string | null;
+  segmento: string | string[] | null;
+  foto: string | null;
+  descricao?: string | null;
 };
 
-const placeholderItems: Item[] = [];
+// Normalização: converte valores do banco em chaves dos filtros
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const categoryFromTipo = (tipo: string | null): Category | null => {
+  if (!tipo) return null;
+  const n = normalize(tipo);
+  if (n.includes("sofa")) return "sofas";
+  if (n.includes("poltrona")) return "poltronas";
+  if (n.includes("cabeceira")) return "cabeceiras";
+  if (n.includes("puff")) return "puffs";
+  return null;
+};
+
+const fabricFromTecido = (tecido: string | null): FabricType | null => {
+  if (!tecido) return null;
+  const n = normalize(tecido);
+  if (n.includes("sintetico")) return "couro-sintetico";
+  if (n.includes("couro")) return "couro";
+  if (n.includes("suede")) return "suede";
+  if (n.includes("linho")) return "linho";
+  if (n.includes("veludo")) return "veludo";
+  return null;
+};
+
+const matchSegment = (seg: Item["segmento"], target: Exclude<Segment, "todos">) => {
+  if (!seg) return true; // sem segmento definido = aparece em todos
+  const list = Array.isArray(seg) ? seg : [seg];
+  return list.map(normalize).some((s) => s.includes(target));
+};
 
 const Catalogo = () => {
   const [activeSegment, setActiveSegment] = useState<Segment>("todos");
@@ -62,11 +98,34 @@ const Catalogo = () => {
   const [activeFabric, setActiveFabric] = useState<FabricType>("todos");
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
-  const filteredItems = placeholderItems.filter((item) => {
-    if (activeSegment !== "todos" && !item.segments.includes(activeSegment)) return false;
-    if (activeCategory !== "todos" && item.category !== activeCategory) return false;
-    if (activeFabric !== "todos" && item.fabric !== activeFabric) return false;
-    if (selectedColor && item.color !== selectedColor) return false;
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      setError(null);
+      const { data, error } = await supabase.functions.invoke("get-catalogo");
+      if (cancelled) return;
+      if (error) {
+        setError(error.message);
+      } else {
+        setItems((data?.items as Item[]) ?? []);
+      }
+      setLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredItems = items.filter((item) => {
+    if (activeSegment !== "todos" && !matchSegment(item.segmento, activeSegment)) return false;
+    if (activeCategory !== "todos" && categoryFromTipo(item.tipo_movel) !== activeCategory) return false;
+    if (activeFabric !== "todos" && fabricFromTecido(item.tecido) !== activeFabric) return false;
+    if (selectedColor && normalize(item.cor ?? "") !== normalize(selectedColor)) return false;
     return true;
   });
 
@@ -80,11 +139,8 @@ const Catalogo = () => {
             </h1>
             <div className="stitch-line max-w-xs mx-auto my-4" />
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Explore nossos modelos, tecidos e cores. Os dados reais serão integrados com o banco de dados em breve.
+              Explore nossos modelos, tecidos e cores.
             </p>
-            <span className="inline-block mt-2 text-xs bg-accent/10 text-accent px-3 py-1 rounded-full">
-              Dados de exemplo — MongoDB em breve
-            </span>
           </div>
 
           {/* Segment selector: Corporativo (CNPJ) / Doméstico (CPF) */}
@@ -214,7 +270,15 @@ const Catalogo = () => {
 
             {/* Product grid */}
             <div className="lg:col-span-3">
-              {filteredItems.length === 0 ? (
+              {loading ? (
+                <div className="stitch-border-light p-12 text-center text-muted-foreground flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" size={18} /> Carregando catálogo…
+                </div>
+              ) : error ? (
+                <div className="stitch-border-light p-12 text-center text-destructive">
+                  Erro ao carregar catálogo: {error}
+                </div>
+              ) : filteredItems.length === 0 ? (
                 <div className="stitch-border-light p-12 text-center text-muted-foreground">
                   Nenhum item encontrado com os filtros selecionados.
                 </div>
@@ -225,12 +289,22 @@ const Catalogo = () => {
                       key={item.id}
                       className="stitch-border-light bg-card overflow-hidden hover:shadow-lg transition-shadow group"
                     >
+                      {item.foto && (
+                        <div className="aspect-[4/3] overflow-hidden bg-muted">
+                          <img
+                            src={item.foto}
+                            alt={item.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
                       <div className="p-5">
                         <h3 className="font-heading text-lg font-semibold text-primary">
                           {item.name}
                         </h3>
                         <p className="text-sm text-muted-foreground mt-2">
-                          {categories.find(c => c.key === item.category)?.label}, {fabricTypes.find(f => f.key === item.fabric)?.label}, {item.color}
+                          {[item.tipo_movel, item.tecido, item.cor].filter(Boolean).join(" · ")}
                         </p>
                       </div>
                     </div>
