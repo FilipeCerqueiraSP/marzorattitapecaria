@@ -36,11 +36,13 @@ const colorSwatches = [
   { name: "Cinza", hsl: "0 0% 50%" },
   { name: "Vermelho", hsl: "0 70% 50%" },
   { name: "Rosa", hsl: "340 70% 75%" },
+  { name: "Laranja", hsl: "25 90% 55%" },
   { name: "Azul", hsl: "220 70% 50%" },
   { name: "Verde", hsl: "120 50% 40%" },
   { name: "Amarelo", hsl: "50 90% 60%" },
   { name: "Marrom", hsl: "25 50% 30%" },
   { name: "Roxo", hsl: "270 60% 50%" },
+  { name: "Colorido", hsl: "conic-gradient(from 0deg, hsl(0 100% 50%), hsl(60 100% 50%), hsl(120 100% 50%), hsl(180 100% 50%), hsl(240 100% 50%), hsl(300 100% 50%), hsl(0 100% 50%))", isGradient: true },
 ];
 
 type Item = {
@@ -192,7 +194,7 @@ const Catalogo = () => {
               {/* Color swatches */}
               <div className="stitch-border p-5 bg-card">
                 <h3 className="font-heading text-lg font-semibold text-primary mb-4">
-                  Cores
+                  Cores <span className="text-xs font-normal text-muted-foreground">(tom aproximado)</span>
                 </h3>
                 <div className="grid grid-cols-4 gap-3">
                   {colorSwatches.map((color) => (
@@ -210,7 +212,7 @@ const Catalogo = () => {
                             ? "border-accent shadow-md"
                             : "border-border"
                         }`}
-                        style={{ backgroundColor: `hsl(${color.hsl})` }}
+                        style={color.isGradient ? { background: color.hsl } : { backgroundColor: `hsl(${color.hsl})` }}
                       />
                       <span className="text-[10px] text-muted-foreground">{color.name}</span>
                     </button>
