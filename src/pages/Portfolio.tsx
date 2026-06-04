@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { Instagram, ImageIcon } from "lucide-react";
 import Layout from "@/components/Layout";
-import destaque1 from "@/assets/destaque-1.png";
-import destaque2 from "@/assets/destaque-2.png";
-import destaque3 from "@/assets/destaque-3.png";
-import destaque4 from "@/assets/destaque-4.png";
-import destaque5 from "@/assets/destaque-5.png";
-import destaque6 from "@/assets/destaque-6.png";
+import destaque1 from "@/assets/destaque-1.png.asset.json";
+import destaque2 from "@/assets/destaque-2.png.asset.json";
+import destaque3 from "@/assets/destaque-3.jpg.asset.json";
+import destaque4 from "@/assets/destaque-4.jpg.asset.json";
+import destaque5 from "@/assets/destaque-5.jpg.asset.json";
+import destaque6 from "@/assets/destaque-6.jpg.asset.json";
 
 const destaques = [
-  { src: destaque1, alt: "Pufes em formato de cogumelo personalizados" },
-  { src: destaque2, alt: "Poltrona infantil estampada floral" },
-  { src: destaque3, alt: "Poltrona temática com estampa floral" },
-  { src: destaque4, alt: "Poltrona clássica com estrutura dourada" },
-  { src: destaque5, alt: "Sofá modular cinza sob medida" },
-  { src: destaque6, alt: "Banco curvo estofado em couro" },
+  { src: destaque1.url, alt: "Pufes em formato de cogumelo personalizados para ambiente infantil" },
+  { src: destaque2.url, alt: "Poltrona temática estampada com flores coloridas" },
+  { src: destaque3.url, alt: "Sofá modular laranja com almofadas estampadas em área externa" },
+  { src: destaque4.url, alt: "Pufes modulares azuis em lounge corporativo" },
+  { src: destaque5.url, alt: "Camas estofadas coloridas em ambiente cenográfico" },
+  { src: destaque6.url, alt: "Sofá rebaixado externo com estampa botânica à beira da piscina" },
 ];
 
 const Portfolio = () => {
