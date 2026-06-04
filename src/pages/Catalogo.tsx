@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Filter, Sofa, Armchair, BedDouble, Building2, Home as HomeIcon, Users, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import Layout from "@/components/Layout";
 
 type Segment = "todos" | "corporativo" | "domestico";
