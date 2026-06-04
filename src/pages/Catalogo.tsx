@@ -194,7 +194,7 @@ const Catalogo = () => {
               {/* Color swatches */}
               <div className="stitch-border p-5 bg-card">
                 <h3 className="font-heading text-lg font-semibold text-primary mb-4">
-                  Cores
+                  Cores <span className="text-xs font-normal text-muted-foreground">(tom aproximado)</span>
                 </h3>
                 <div className="grid grid-cols-4 gap-3">
                   {colorSwatches.map((color) => (
