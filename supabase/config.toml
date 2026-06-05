@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.save-cliente]
 verify_jwt = false
+
+[functions.chat-especialista]
+verify_jwt = false
